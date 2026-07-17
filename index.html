@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как оформить единое пособие и не получить отказ — Елена Кравцова</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --blue:#1B4F9B;--blue2:#2563EB;--blue-lt:#EFF6FF;--blue-mid:#BFDBFE;
+    --dark:#111827;--gray:#6B7280;--white:#FFFFFF;
+    --green:#16A34A;--green-lt:#DCFCE7;
+    --red:#DC2626;--red-lt:#FEE2E2;
+    --orange:#D97706;--orange-lt:#FEF3C7;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--dark);background:#F3F4F6;line-height:1.6;overflow-x:hidden;}
+
+  .fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.55s ease,transform 0.55s ease;}
+  .fade-up.visible{opacity:1;transform:translateY(0);}
+  .d1{transition-delay:0.1s;}.d2{transition-delay:0.2s;}.d3{transition-delay:0.3s;}
+
+  .progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--blue),#60A5FA);z-index:1000;border-radius:0 2px 2px 0;transition:width 0.1s linear;}
+
+  .sticky-cta{position:fixed;bottom:24px;right:24px;z-index:999;transform:translateY(80px);opacity:0;transition:transform 0.4s ease,opacity 0.4s ease;}
+  .sticky-cta.show{transform:translateY(0);opacity:1;}
+  .sticky-cta a{display:flex;align-items:center;gap:9px;background:var(--blue);color:white;text-decoration:none;padding:12px 18px;border-radius:50px;font-size:13.5px;font-weight:700;box-shadow:0 8px 28px rgba(27,79,155,0.4);transition:transform 0.2s,box-shadow 0.2s;}
+  .sticky-cta a:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(27,79,155,0.5);}
+  .pulse{width:9px;height:9px;background:#4ADE80;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.6;transform:scale(1.4);}}
+
+  /* HERO */
+  .hero{background:linear-gradient(140deg,#0A1F4E 0%,#1B4F9B 55%,#2563EB 100%);color:white;padding:64px 24px 52px;text-align:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 15%,rgba(255,255,255,0.07) 0%,transparent 55%);}
+  .hc{position:absolute;border-radius:50%;background:rgba(255,255,255,0.04);animation:float 8s ease-in-out infinite;}
+  .hc:nth-child(1){width:280px;height:280px;top:-80px;right:-60px;}
+  .hc:nth-child(2){width:180px;height:180px;bottom:-40px;left:-50px;animation-delay:-3s;}
+  .hc:nth-child(3){width:120px;height:120px;top:40%;right:8%;animation-delay:-5s;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
+
+  .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:100px;padding:6px 16px;font-size:12.5px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:20px;position:relative;animation:fadeIn 0.8s ease both;}
+  @keyframes fadeIn{from{opacity:0;transform:scale(0.85);}to{opacity:1;transform:scale(1);}}
+
+  .hero-author{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);border-radius:50px;padding:8px 16px 8px 8px;margin-bottom:22px;animation:su 0.9s ease 0.15s both;position:relative;}
+  @keyframes su{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+  .ha-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#93C5FD,#2563EB);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+  .ha-name{font-size:13px;font-weight:700;line-height:1.2;text-align:left;}
+  .ha-role{font-size:11px;opacity:0.65;text-align:left;}
+
+  .hero h1{font-size:clamp(22px,5vw,40px);font-weight:900;line-height:1.18;margin-bottom:14px;position:relative;animation:su 0.9s ease 0.25s both;}
+  .hero h1 span{color:#93C5FD;}
+  .hero-sub{font-size:15px;opacity:0.85;max-width:520px;margin:0 auto 28px;position:relative;animation:su 0.9s ease 0.35s both;}
+  .hero-cta{display:inline-flex;align-items:center;gap:10px;background:white;color:var(--blue);text-decoration:none;padding:14px 26px;border-radius:14px;font-size:15px;font-weight:800;box-shadow:0 4px 24px rgba(0,0,0,0.22);transition:transform 0.22s,box-shadow 0.22s;position:relative;animation:su 0.9s ease 0.45s both;}
+  .hero-cta:hover{transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,0.3);}
+
+  .hero-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:44px;padding-top:32px;border-top:1px solid rgba(255,255,255,0.14);position:relative;animation:su 0.9s ease 0.55s both;}
+  .stat{text-align:center;}
+  .stat-num{font-size:24px;font-weight:900;line-height:1;}
+  .stat-label{font-size:11px;opacity:0.65;margin-top:4px;}
+
+  /* LAYOUT */
+  .wrap{max-width:700px;margin:0 auto;padding:0 20px;}
+
+  /* CARDS */
+  .card{background:white;border-radius:20px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,0.06);transition:box-shadow 0.25s,transform 0.25s;margin-bottom:24px;}
+  .card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1);transform:translateY(-2px);}
+
+  .sec-hd{display:flex;align-items:center;gap:13px;margin-bottom:13px;}
+  .sec-num{width:40px;height:40px;background:var(--blue);color:white;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0;box-shadow:0 4px 12px rgba(27,79,155,0.3);}
+  .sec-title{font-size:20px;font-weight:800;}
+
+  /* AMOUNT GRID */
+  .ag{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#E5E7EB;}
+  .ac{background:white;padding:18px 10px;text-align:center;}
+  .ac.hi{background:var(--blue);}
+  .ac-pct{font-size:28px;font-weight:900;color:var(--blue);}
+  .ac.hi .ac-pct{color:white;}
+  .ac-rub{font-size:14px;font-weight:700;color:var(--dark);margin-top:4px;}
+  .ac.hi .ac-rub{color:#BFDBFE;}
+  .ac-lbl{font-size:10.5px;color:var(--gray);margin-top:3px;}
+  .ac.hi .ac-lbl{color:rgba(255,255,255,0.6);}
+
+  /* TABLE */
+  .tw{overflow-x:auto;padding:0 22px 16px;}
+  .tbl{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .tbl th{background:var(--blue);color:white;padding:8px 12px;text-align:left;font-size:12px;font-weight:700;}
+  .tbl td{padding:8px 12px;border-bottom:1px solid #F3F4F6;color:var(--dark);}
+  .tbl tr:nth-child(even) td{background:#F9FAFB;}
+  .tbl tr:hover td{background:var(--blue-lt);}
+
+  /* INFO ROW */
+  .ir{padding:13px 22px;border-bottom:1px solid #F3F4F6;display:flex;gap:12px;align-items:flex-start;}
+  .ir:last-child{border-bottom:none;}
+  .il{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--gray);min-width:88px;padding-top:1px;}
+  .iv{font-size:13.5px;color:var(--dark);flex:1;}
+
+  /* SUBLABEL */
+  .sl{padding:10px 22px 5px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--blue);border-top:1px solid #F3F4F6;}
+  .sl:first-child{border-top:none;}
+
+  /* CHECKLIST */
+  .cl{padding:14px 22px;display:flex;flex-direction:column;gap:8px;}
+  .ci{display:flex;align-items:flex-start;gap:8px;font-size:13.5px;color:var(--dark);}
+  .ci-i{font-size:14px;flex-shrink:0;margin-top:2px;}
+
+  /* TAGS */
+  .tr2{padding:13px 22px;display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;border-radius:100px;font-size:12px;font-weight:600;transition:transform 0.15s;}
+  .tag:hover{transform:scale(1.04);}
+  .tg{background:var(--green-lt);color:var(--green);}
+  .tr{background:var(--red-lt);color:var(--red);}
+  .tb{background:var(--blue-lt);color:var(--blue);}
+  .to{background:var(--orange-lt);color:var(--orange);}
+
+  /* ALERTS */
+  .al{margin:12px 22px;padding:11px 14px;border-radius:12px;font-size:13px;display:flex;gap:9px;align-items:flex-start;}
+  .al.blue{background:var(--blue-lt);border-left:3px solid var(--blue2);}
+  .al.or{background:var(--orange-lt);border-left:3px solid var(--orange);}
+  .al.red{background:var(--red-lt);border-left:3px solid var(--red);}
+  .al.gr{background:var(--green-lt);border-left:3px solid var(--green);}
+  .al-i{font-size:15px;flex-shrink:0;}
+  .al p{color:var(--dark);margin:0;}
+
+  /* CALC */
+  .calc{padding:16px 22px;background:var(--blue-lt);border-top:1px solid var(--blue-mid);}
+  .calc-t{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:10px;}
+  .cr{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid var(--blue-mid);}
+  .cr:last-child{border-bottom:none;font-weight:700;color:var(--blue);margin-top:4px;}
+  .cl2{color:var(--gray);}
+  .cv{font-weight:600;color:var(--dark);}
+
+  /* PERIOD EXAMPLE */
+  .pe{padding:16px 22px;}
+  .pe-row{display:flex;gap:8px;align-items:stretch;margin-bottom:10px;}
+  .pe-month{background:var(--blue);color:white;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:700;text-align:center;flex:1;}
+  .pe-month.skip{background:#F3F4F6;color:var(--gray);}
+  .pe-month.bad{background:var(--orange-lt);color:var(--orange);border:1.5px solid var(--orange);}
+  .pe-label{font-size:12px;color:var(--gray);margin-top:4px;text-align:center;}
+
+  /* REASONS */
+  .rl{padding:16px 22px;display:flex;flex-direction:column;gap:10px;}
+  .ri{background:#F9FAFB;border-radius:12px;padding:13px 15px;transition:background 0.2s,transform 0.2s;cursor:default;}
+  .ri:hover{background:var(--blue-lt);transform:translateX(3px);}
+  .ri-t{font-size:13.5px;font-weight:700;color:var(--red);margin-bottom:4px;}
+  .ri-d{font-size:12.5px;color:var(--gray);}
+
+  /* LIFEHACKS */
+  .lh-grid{padding:16px 22px;display:grid;gap:10px;}
+  .lh{background:linear-gradient(135deg,var(--blue-lt),#DBEAFE);border-radius:14px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;border-left:3px solid var(--blue);transition:transform 0.2s;}
+  .lh:hover{transform:translateX(4px);}
+  .lh-icon{font-size:20px;flex-shrink:0;}
+  .lh-body{}
+  .lh-t{font-size:13.5px;font-weight:700;color:var(--blue);margin-bottom:3px;}
+  .lh-d{font-size:12.5px;color:var(--dark);}
+
+  /* BOTTOM CTA */
+  .bc{margin:32px 0 90px;}
+  .bc-card{background:linear-gradient(140deg,#0A1F4E,#1B4F9B);border-radius:24px;padding:36px 28px;text-align:center;color:white;position:relative;overflow:hidden;}
+  .bc-card::before{content:'';position:absolute;top:-50px;right:-50px;width:220px;height:220px;background:rgba(255,255,255,0.05);border-radius:50%;}
+  .bc-card::after{content:'';position:absolute;bottom:-40px;left:-40px;width:160px;height:160px;background:rgba(255,255,255,0.04);border-radius:50%;}
+  .bc-card h2{font-size:21px;font-weight:900;margin-bottom:10px;position:relative;}
+  .bc-card p{font-size:14px;opacity:0.82;margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto;position:relative;}
+  .cta-btn{display:inline-flex;align-items:center;gap:10px;background:white;color:var(--blue);text-decoration:none;padding:14px 26px;border-radius:14px;font-size:15px;font-weight:800;box-shadow:0 4px 20px rgba(0,0,0,0.2);transition:transform 0.22s,box-shadow 0.22s;position:relative;}
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 10px 32px rgba(0,0,0,0.28);}
+  .cta-sub{font-size:12px;opacity:0.55;margin-top:14px;position:relative;}
+
+  .footer{text-align:center;padding:20px 20px 36px;font-size:12px;color:var(--gray);}
+  .footer a{color:var(--blue);text-decoration:none;}
+
+  .intro-card{background:white;border-radius:20px;padding:28px;box-shadow:0 2px 20px rgba(0,0,0,0.06);border-left:4px solid var(--blue);margin:36px 0 28px;}
+  .intro-card h2{font-size:18px;color:var(--blue);margin-bottom:12px;font-weight:800;}
+  .intro-card p{color:var(--gray);font-size:14px;margin-bottom:10px;}
+  .sc-block{background:#FFF7F0;border-radius:12px;padding:14px 16px;margin:8px 0;font-size:13.5px;color:var(--dark);border-left:3px solid var(--orange);}
+
+  @media(max-width:480px){
+    .ag{grid-template-columns:repeat(3,1fr);}
+    .ac-pct{font-size:22px;}
+    .ac-rub{font-size:12px;}
+    .stat-num{font-size:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="pb"></div>
+
+<div class="sticky-cta" id="sc">
+  <a href="https://t.me/ElenaKravtsova28?text=Здравствуйте%21%20Хочу%20записаться%20на%20консультацию" target="_blank">
+    <div class="pulse"></div>
+    Записаться на консультацию
+  </a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hc"></div><div class="hc"></div><div class="hc"></div>
+  <div class="hero-badge">📋 POSOBIYARU · Актуально на июль 2026</div>
+  <div class="hero-author" style="position:relative;">
+    <div class="ha-av">⚖️</div>
+    <div><div class="ha-name">Елена Кравцова</div><div class="ha-role">Юрист по пособиям · @ElenaKravtsova28</div></div>
+  </div>
+  <h1>Как оформить единое пособие<br><span>и не получить отказ</span></h1>
+  <p class="hero-sub">Пошаговая инструкция: почему отказывают, как правильно считается доход и что сделать, чтобы получить пособие с первого раза</p>
+  <a href="https://t.me/ElenaKravtsova28?text=Здравствуйте%21%20Хочу%20записаться%20на%20консультацию" target="_blank" class="hero-cta">💬 Разобрать мою ситуацию</a>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">40%</div><div class="stat-label">заявлений получают отказ</div></div>
+    <div class="stat"><div class="stat-num">до 18 371 ₽</div><div class="stat-label">на ребёнка в месяц</div></div>
+    <div class="stat"><div class="stat-num">12 мес.</div><div class="stat-label">срок назначения</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- INTRO -->
+<div class="intro-card fade-up">
+  <h2>Почему отказывают тем, кому должны были одобрить</h2>
+  <p>Соцзащита считает доход иначе, чем вы. Они берут другой период, учитывают выплаты, о которых вы забыли, и считают состав семьи по своим правилам. В итоге цифра расходится.</p>
+  <p>Три типичные истории:</p>
+  <div class="sc-block">Причина отказа: «Превышение среднедушевого дохода». Семья считала доход по-своему и думала, что проходит. Оказалось, в расчёт попала годовая премия, о которой забыли.</div>
+  <div class="sc-block">Причина отказа: «Не соблюдено правило нулевого дохода». Папа полгода не работал после увольнения и не знал, что нужно было встать на учёт в центр занятости.</div>
+  <div class="sc-block">Причина отказа: «Превышение имущественного ценза». Две машины: одна рабочая, вторая стоит во дворе. По документам — две. Этого достаточно для отказа.</div>
+  <p>В этой инструкции разобрано всё: как считается доход, что такое правило нулевого дохода, как устроен имущественный ценз и что делать при отказе.</p>
+</div>
+
+
+<!-- 1. ЧТО ТАКОЕ ПОСОБИЕ -->
+<div class="sec-wrap fade-up d1">
+  <div class="sec-hd"><div class="sec-num">1</div><div class="sec-title">Что такое единое пособие</div></div>
+  <div class="card">
+    <div class="ir"><div class="il">Суть</div><div class="iv">Ежемесячная выплата семьям с детьми от 0 до 17 лет с низким доходом. Введено с 1 января 2023 года и объединило несколько старых пособий</div></div>
+    <div class="ir"><div class="il">Срок</div><div class="iv">12 месяцев. После окончания нужно подавать заново</div></div>
+    <div class="ir"><div class="il">Кто платит</div><div class="iv">Социальный фонд России (СФР)</div></div>
+
+    <div class="sl">Размер выплаты в 2026 году</div>
+    <div class="ag">
+      <div class="ac"><div class="ac-pct">50%</div><div class="ac-rub">около 9 185 ₽</div><div class="ac-lbl">базовый / на ребёнка</div></div>
+      <div class="ac hi"><div class="ac-pct">75%</div><div class="ac-rub">около 13 778 ₽</div><div class="ac-lbl">если 50% не хватает</div></div>
+      <div class="ac"><div class="ac-pct">100%</div><div class="ac-rub">около 18 371 ₽</div><div class="ac-lbl">максимум / на ребёнка</div></div>
+    </div>
+    <div class="al blue" style="margin-top:0;border-radius:0;">
+      <span class="al-i">💡</span>
+      <p>Суммы рассчитаны от федерального прожиточного минимума на детей (18 371 рубль). В вашем регионе может быть выше. Если детей двое, умножайте на два. Система сама определяет процент: вы просто подаёте заявление.</p>
+    </div>
+
+    <div class="sl">Суммы по ключевым регионам (2026 год)</div>
+    <div class="tw">
+      <table class="tbl">
+        <tr><th>Регион</th><th>50%</th><th>75%</th><th>100%</th></tr>
+        <tr><td>Москва</td><td>~10 165 ₽</td><td>~15 248 ₽</td><td>~20 330 ₽</td></tr>
+        <tr><td>Московская область</td><td>~9 082 ₽</td><td>~13 623 ₽</td><td>~18 164 ₽</td></tr>
+        <tr><td>Санкт-Петербург</td><td>~9 416 ₽</td><td>~14 124 ₽</td><td>~18 832 ₽</td></tr>
+        <tr><td>Краснодарский край</td><td>~8 012 ₽</td><td>~12 018 ₽</td><td>~16 024 ₽</td></tr>
+        <tr><td>Новосибирская область</td><td>~8 550 ₽</td><td>~12 825 ₽</td><td>~17 100 ₽</td></tr>
+        <tr><td>Свердловская область</td><td>~8 333 ₽</td><td>~12 499 ₽</td><td>~16 666 ₽</td></tr>
+        <tr><td>В среднем по России</td><td>~9 185 ₽</td><td>~13 778 ₽</td><td>~18 371 ₽</td></tr>
+      </table>
+    </div>
+    <div class="al or"><span class="al-i">📍</span><p>Точные суммы для вашего региона — на Госуслугах в разделе «Единое пособие» или на сайте СФР. Суммы актуальны с 1 января 2026 года после индексации на 6,8%.</p></div>
+  </div>
+</div>
+
+
+<!-- 2. КАК СЧИТАЕТСЯ ДОХОД -->
+<div class="sec-wrap fade-up d2">
+  <div class="sec-hd"><div class="sec-num">2</div><div class="sec-title">Как считается доход — самое важное</div></div>
+  <div class="card">
+    <div class="al blue" style="margin-top:0;border-radius:0;">
+      <span class="al-i">⚡</span>
+      <p>Около 80% отказов связаны именно с расчётом дохода. Прочитайте этот раздел внимательно.</p>
+    </div>
+
+    <div class="sl">Расчётный период</div>
+    <div class="ir"><div class="il">Правило</div><div class="iv">Берутся 12 месяцев, которые закончились <strong>за 1 месяц до подачи</strong> заявления</div></div>
+    <div class="ir"><div class="il">Пример</div><div class="iv">Подаёте в апреле 2026 года — расчётный период: март 2025 — февраль 2026</div></div>
+
+    <div class="sl">Почему важно выбирать месяц подачи</div>
+    <div class="pe">
+      <p style="font-size:13px;color:var(--gray);margin-bottom:12px;">Ситуация: в январе 2025 года получили годовую премию 100 000 рублей</p>
+      <div style="margin-bottom:8px;">
+        <div style="font-size:12px;font-weight:700;color:var(--red);margin-bottom:6px;">Подача в марте 2026: расчётный период янв 2025 — фев 2026</div>
+        <div class="pe-row">
+          <div class="pe-month bad">Янв<br>2025<br>💸</div>
+          <div class="pe-month">Фев</div><div class="pe-month">Мар</div><div class="pe-month">Апр</div><div class="pe-month">Май</div><div class="pe-month">Июн</div><div class="pe-month">Июл</div><div class="pe-month">Авг</div><div class="pe-month">Сен</div><div class="pe-month">Окт</div><div class="pe-month">Ноя</div><div class="pe-month">Дек</div>
+        </div>
+        <div style="font-size:12px;color:var(--red);margin-top:4px;">Премия попадает в расчёт — доход завышен</div>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px;">Подача в апреле 2026: расчётный период фев 2025 — мар 2026</div>
+        <div class="pe-row">
+          <div class="pe-month skip">Янв<br>2025</div>
+          <div class="pe-month">Фев</div><div class="pe-month">Мар</div><div class="pe-month">Апр</div><div class="pe-month">Май</div><div class="pe-month">Июн</div><div class="pe-month">Июл</div><div class="pe-month">Авг</div><div class="pe-month">Сен</div><div class="pe-month">Окт</div><div class="pe-month">Ноя</div><div class="pe-month">Дек</div>
+        </div>
+        <div style="font-size:12px;color:var(--green);margin-top:4px;">Январь с премией выпал — доход корректный ✅</div>
+      </div>
+    </div>
+
+    <div class="sl">Формула расчёта</div>
+    <div class="calc">
+      <div class="calc-t">Пример: семья из 4 человек (мама, папа, двое детей)</div>
+      <div class="cr"><span class="cl2">Доход папы за 12 месяцев</span><span class="cv">600 000 ₽</span></div>
+      <div class="cr"><span class="cl2">Доход мамы (в декрете)</span><span class="cv">0 ₽</span></div>
+      <div class="cr"><span class="cl2">Итого за год</span><span class="cv">600 000 ₽</span></div>
+      <div class="cr"><span class="cl2">÷ 12 месяцев</span><span class="cv">50 000 ₽/мес</span></div>
+      <div class="cr"><span class="cl2">÷ 4 члена семьи</span><span class="cv">12 500 ₽</span></div>
+      <div class="cr"><span class="cl2">ПМ в регионе (пример)</span><span class="cv">15 000 ₽</span></div>
+      <div class="cr"><span>Вывод</span><span style="color:var(--green)">Проходит ✅ (12 500 &lt; 15 000)</span></div>
+    </div>
+
+    <div class="sl">Что учитывается в доходах</div>
+    <div class="tr2">
+      <span class="tag tg">✅ Зарплата до вычета НДФЛ</span>
+      <span class="tag tg">✅ Премии, отпускные, больничные</span>
+      <span class="tag tg">✅ Доходы самозанятых и ИП</span>
+      <span class="tag tg">✅ Пенсии и стипендии</span>
+      <span class="tag tg">✅ Алименты полученные</span>
+      <span class="tag tg">✅ Пособие по безработице</span>
+      <span class="tag tg">✅ Доходы от аренды и продажи имущества</span>
+      <span class="tag tg">✅ Проценты по вкладам (если больше 1 ПМ/год)</span>
+      <span class="tag tr">❌ Само единое пособие</span>
+      <span class="tag tr">❌ Материнский капитал</span>
+      <span class="tag tr">❌ Налоговые вычеты</span>
+      <span class="tag tr">❌ Компенсации за лекарства и лечение</span>
+      <span class="tag tr">❌ Целевые гранты и субсидии на бизнес</span>
+    </div>
+
+    <div class="sl">Кто входит в состав семьи</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">✅</span>Заявитель и официальный супруг или супруга</div>
+      <div class="ci"><span class="ci-i">✅</span>Несовершеннолетние дети</div>
+      <div class="ci"><span class="ci-i">✅</span>Дети до 23 лет, если учатся очно и не состоят в браке</div>
+      <div class="ci"><span class="ci-i">❌</span>Сожители (гражданский брак не учитывается)</div>
+      <div class="ci"><span class="ci-i">❌</span>Бабушки и дедушки, даже если живут вместе</div>
+      <div class="ci"><span class="ci-i">❌</span>Бывший супруг после развода (но его алименты учитываются)</div>
+      <div class="ci"><span class="ci-i">❌</span>Члены семьи, проходящие службу по призыву или находящиеся в заключении</div>
+    </div>
+    <div class="al or"><span class="al-i">⚠️</span><p><strong>Важно про нового супруга:</strong> если вы вышли замуж или женились повторно, новый супруг входит в состав семьи и его доходы учитываются — даже если дети не его.</p></div>
+  </div>
+</div>
+
+
+<!-- 3. ПРАВИЛО НУЛЕВОГО ДОХОДА -->
+<div class="sec-wrap fade-up d1">
+  <div class="sec-hd"><div class="sec-num">3</div><div class="sec-title">Правило нулевого дохода</div></div>
+  <div class="card">
+    <div class="sl">Суть правила</div>
+    <div class="ir"><div class="il">Правило</div><div class="iv">Если кто-то из взрослых членов семьи не имел официального дохода, нужна уважительная причина, покрывающая не менее <strong>10 из 12 месяцев</strong> расчётного периода</div></div>
+    <div class="ir"><div class="il">Зачем</div><div class="iv">Государство помогает тем, кто работает, но зарабатывает мало. Трудоспособный человек без уважительной причины, по логике закона, может найти работу</div></div>
+
+    <div class="sl">Уважительные причины</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">✔️</span>Уход за ребёнком до 3 лет</div>
+      <div class="ci"><span class="ci-i">✔️</span>Уход за инвалидом I группы, ребёнком-инвалидом или пожилым старше 80 лет (при оформленном уходе через СФР)</div>
+      <div class="ci"><span class="ci-i">✔️</span>Очное обучение до 23 лет</div>
+      <div class="ci"><span class="ci-i">✔️</span>Длительное лечение (более 3 месяцев подряд)</div>
+      <div class="ci"><span class="ci-i">✔️</span>Официальная безработица с постановкой на учёт в ЦЗН — не более 6 месяцев</div>
+      <div class="ci"><span class="ci-i">✔️</span>Срочная служба в армии и ещё 3 месяца после демобилизации</div>
+      <div class="ci"><span class="ci-i">✔️</span>Статус многодетного родителя (один из родителей)</div>
+      <div class="ci"><span class="ci-i">✔️</span>Единственный родитель несовершеннолетнего ребёнка</div>
+      <div class="ci"><span class="ci-i">✔️</span>Беременность (если 6 и более месяцев приходятся на расчётный период)</div>
+    </div>
+
+    <div class="sl">Примеры: когда правило соблюдено и когда нет</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">✅</span>Мама весь год в декрете с ребёнком до 3 лет — 12 из 12 месяцев закрыты</div>
+      <div class="ci"><span class="ci-i">✅</span>Папа работал 6 месяцев, уволился, встал на учёт в ЦЗН ещё на 6 месяцев — 12 из 12 закрыты</div>
+      <div class="ci"><span class="ci-i">❌</span>Папа работал 6 месяцев, уволился, на биржу не пошёл — 6 месяцев без дохода и без причины. Отказ</div>
+    </div>
+
+    <div class="sl">Что делать, если нет уважительной причины</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">1️⃣</span>Устроиться на официальную работу — даже на минимальный доход</div>
+      <div class="ci"><span class="ci-i">2️⃣</span>Зарегистрироваться как самозанятый и показать любой доход</div>
+      <div class="ci"><span class="ci-i">3️⃣</span>Встать на учёт в центр занятости — это закрывает до 6 месяцев</div>
+      <div class="ci"><span class="ci-i">4️⃣</span>Оформить уход за пожилым родственником через СФР</div>
+      <div class="ci"><span class="ci-i">5️⃣</span>Подождать, пока период без уважительной причины выпадет из расчётного периода</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 4. ИМУЩЕСТВЕННЫЙ ЦЕНЗ -->
+<div class="sec-wrap fade-up d2">
+  <div class="sec-hd"><div class="sec-num">4</div><div class="sec-title">Имущественный ценз</div></div>
+  <div class="card">
+    <div class="sl">Что можно иметь</div>
+    <div class="tr2">
+      <span class="tag tg">✅ Одна квартира (или несколько, если менее 24 кв. м на человека)</span>
+      <span class="tag tg">✅ Один дом (или несколько, если менее 40 кв. м на человека)</span>
+      <span class="tag tg">✅ Одна дача</span>
+      <span class="tag tg">✅ Один гараж (два для многодетных)</span>
+      <span class="tag tg">✅ Один автомобиль (два для многодетных или при инвалиде)</span>
+      <span class="tag tg">✅ Участок до 0,25 га в городе или 1 га в селе</span>
+    </div>
+
+    <div class="sl">Что нельзя иметь</div>
+    <div class="tr2">
+      <span class="tag tr">❌ Два автомобиля и более без исключений</span>
+      <span class="tag tr">❌ Авто мощнее 250 л. с. возрастом до 5 лет</span>
+      <span class="tag tr">❌ Вклад с годовым доходом больше 1 прожиточного минимума (~18 939 ₽)</span>
+    </div>
+
+    <div class="sl">Что не учитывается</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">✔️</span>Имущество под арестом или в залоге (например, ипотечная квартира)</div>
+      <div class="ci"><span class="ci-i">✔️</span>Жильё, признанное непригодным для проживания</div>
+      <div class="ci"><span class="ci-i">✔️</span>Транспорт, полученный по государственной соцпрограмме</div>
+      <div class="ci"><span class="ci-i">✔️</span>Доли в имуществе менее одной трети</div>
+    </div>
+
+    <div class="sl">Частые ловушки</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">⚠️</span><div><strong>Две машины в семье.</strong> У мужа рабочая, у жены старая во дворе. По документам — две. Это отказ. Решение: снять с учёта или продать одну до подачи.</div></div>
+      <div class="ci"><span class="ci-i">⚠️</span><div><strong>Крупный вклад.</strong> Вклад 500 000 рублей под 10% даёт 50 000 рублей дохода в год — это больше одного прожиточного минимума. Проверьте вклады всех членов семьи.</div></div>
+      <div class="ci"><span class="ci-i">⚠️</span><div><strong>Доля мужа в квартире родителей.</strong> Если доля больше одной трети, она учитывается как ваше имущество. Если меньше — нет.</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 5. КАК ПОДАТЬ -->
+<div class="sec-wrap fade-up d1">
+  <div class="sec-hd"><div class="sec-num">5</div><div class="sec-title">Как подать заявление</div></div>
+  <div class="card">
+    <div class="sl">Где подать</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">💻</span><strong>Госуслуги</strong> — самый удобный способ. Большинство данных подтягивается автоматически, документы не нужны</div>
+      <div class="ci"><span class="ci-i">🏢</span><strong>МФЦ</strong> — лично с паспортом и свидетельствами о рождении детей</div>
+      <div class="ci"><span class="ci-i">📍</span><strong>Социальный фонд России</strong> — лично или по почте</div>
+    </div>
+
+    <div class="sl">На что обратить внимание при заполнении</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">👥</span>Состав семьи: указывайте только тех, кто входит по правилам (см. раздел 2)</div>
+      <div class="ci"><span class="ci-i">📍</span>Адрес: место фактического проживания, а не прописка</div>
+      <div class="ci"><span class="ci-i">💰</span>Сведения о доходах: проверьте, всё ли подтянулось корректно</div>
+      <div class="ci"><span class="ci-i">🏠</span>Имущество: всё проверяется по базам Росреестра и ГИБДД — будьте честны</div>
+    </div>
+
+    <div class="sl">Сроки</div>
+    <div class="ir"><div class="il">Рассмотрение</div><div class="iv">До 10 рабочих дней при стандартной проверке. До 30 дней, если запрашивают дополнительные документы</div></div>
+    <div class="ir"><div class="il">Начало выплат</div><div class="iv">На детей до 3 лет — с месяца рождения (если подать в течение 6 месяцев). На детей 3–17 лет — с месяца подачи заявления</div></div>
+
+    <div class="al or"><span class="al-i">⚠️</span><p>Если СФР запросит дополнительные документы, предоставьте их в течение 5 рабочих дней. Следите за уведомлениями на Госуслугах.</p></div>
+  </div>
+</div>
+
+
+<!-- 6. ТОП-10 ПРИЧИН ОТКАЗА -->
+<div class="sec-wrap fade-up d2">
+  <div class="sec-hd"><div class="sec-num">6</div><div class="sec-title">Топ-10 причин отказа и что делать</div></div>
+  <div class="card">
+    <div class="rl">
+      <div class="ri"><div class="ri-t">1. Превышение среднедушевого дохода</div><div class="ri-d">Самая частая причина. Проверьте расчёт: возможно, учтены лишние доходы или лишние члены семьи. Попробуйте другой месяц подачи, чтобы «невыгодный» доход выпал из расчётного периода.</div></div>
+      <div class="ri"><div class="ri-t">2. Нарушение правила нулевого дохода</div><div class="ri-d">Кто-то из взрослых не работал без уважительной причины. Встаньте на учёт в ЦЗН, зарегистрируйтесь самозанятым или оформите уход за пожилым родственником.</div></div>
+      <div class="ri"><div class="ri-t">3. Превышение имущественного ценза</div><div class="ri-d">Две машины, большой вклад или несоразмерная недвижимость. Снимите лишнее с учёта или продайте до подачи. Проверьте, правильно ли учтены доли.</div></div>
+      <div class="ri"><div class="ri-t">4. Неправильный состав семьи</div><div class="ri-d">Указали лишних людей или пропустили нужных. Пересмотрите, кто входит по правилам, и исправьте при повторной подаче.</div></div>
+      <div class="ri"><div class="ri-t">5. Ошибки в заявлении</div><div class="ri-d">Опечатки, устаревшие данные, расхождения с базами. Проверьте СНИЛС, паспортные данные и адреса перед отправкой.</div></div>
+      <div class="ri"><div class="ri-t">6. Документы не предоставлены в срок</div><div class="ri-d">Запросили дополнительные справки, но они не поступили. Следите за уведомлениями и отвечайте в течение 5 рабочих дней.</div></div>
+      <div class="ri"><div class="ri-t">7. Ребёнку исполнилось 17 лет</div><div class="ri-d">Пособие назначается до 17 лет. В месяц исполнения 17 лет выплачивается последний раз.</div></div>
+      <div class="ri"><div class="ri-t">8. Ребёнок не является гражданином РФ</div><div class="ri-d">Пособие назначается только на детей с гражданством России.</div></div>
+      <div class="ri"><div class="ri-t">9. Заявитель не проживает в России</div><div class="ri-d">Требуется постоянное проживание на территории РФ.</div></div>
+      <div class="ri"><div class="ri-t">10. Заявление подал не тот родитель</div><div class="ri-d">Подавать должен тот, с кем фактически проживает ребёнок.</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- 7. ЧТО ДЕЛАТЬ ПРИ ОТКАЗЕ -->
+<div class="sec-wrap fade-up d1">
+  <div class="sec-hd"><div class="sec-num">7</div><div class="sec-title">Что делать при отказе</div></div>
+  <div class="card">
+    <div class="sl">Шаг 1. Запросите подробный расчёт</div>
+    <div class="ir"><div class="il">Суть</div><div class="iv">В уведомлении об отказе причина часто указана формально. Вы вправе запросить детализацию: какие доходы учтены, за какой период, кто включён в состав семьи</div></div>
+    <div class="ir"><div class="il">Как</div><div class="iv">Через Госуслуги (обращение в СФР), лично в отделении СФР или через МФЦ</div></div>
+
+    <div class="sl">Шаг 2. Найдите расхождение</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">🔍</span>Сравните их расчёт со своим</div>
+      <div class="ci"><span class="ci-i">⚠️</span>Частые ошибки соцзащиты: учтены доходы бывшего супруга, учтены единовременные выплаты, неверно посчитан период, учтено имущество с долей менее 1/3</div>
+    </div>
+
+    <div class="sl">Шаг 3. Исправьте и подайте повторно</div>
+    <div class="cl">
+      <div class="ci"><span class="ci-i">✅</span>Ограничений по количеству подач нет. Подать повторно можно сразу после устранения причины</div>
+      <div class="ci"><span class="ci-i">⚖️</span>Если ошибка на стороне соцзащиты, можно обжаловать: через вышестоящий орган СФР, прокуратуру или суд</div>
+    </div>
+    <div class="al blue"><span class="al-i">💡</span><p>Обычно проще устранить причину и подать заново, чем проходить процедуру обжалования. Исключение — если соцзащита явно нарушила правила расчёта.</p></div>
+  </div>
+</div>
+
+
+<!-- 8. ЛАЙФХАКИ -->
+<div class="sec-wrap fade-up d2">
+  <div class="sec-hd"><div class="sec-num">8</div><div class="sec-title">Как повысить шансы на одобрение</div></div>
+  <div class="card">
+    <div class="lh-grid">
+      <div class="lh">
+        <div class="lh-icon">📅</div>
+        <div class="lh-body">
+          <div class="lh-t">Выбирайте месяц подачи осознанно</div>
+          <div class="lh-d">Рассчитайте, какие доходы попадут в расчёт при разных месяцах. Если была крупная выплата — дождитесь, когда она выйдет за пределы расчётного периода.</div>
+        </div>
+      </div>
+      <div class="lh">
+        <div class="lh-icon">👥</div>
+        <div class="lh-body">
+          <div class="lh-t">Уточните состав семьи заранее</div>
+          <div class="lh-d">Сожитель — не член семьи. Бывший супруг — не член семьи. Совершеннолетний работающий ребёнок — в семью не входит. Это может снизить среднедушевой доход.</div>
+        </div>
+      </div>
+      <div class="lh">
+        <div class="lh-icon">💼</div>
+        <div class="lh-body">
+          <div class="lh-t">Закройте вопрос с нулевым доходом заранее</div>
+          <div class="lh-d">Самый быстрый способ — зарегистрироваться самозанятым. Даже 1 000 рублей в месяц — уже ненулевой доход, правило соблюдено.</div>
+        </div>
+      </div>
+      <div class="lh">
+        <div class="lh-icon">🚗</div>
+        <div class="lh-body">
+          <div class="lh-t">Разберитесь с имуществом до подачи</div>
+          <div class="lh-d">Есть лишняя машина — снимите с учёта. Большой вклад — проверьте, чей он. Доля в чужой квартире — проверьте её размер. Лучше сделать это до подачи, чем разбираться после отказа.</div>
+        </div>
+      </div>
+      <div class="lh">
+        <div class="lh-icon">⏳</div>
+        <div class="lh-body">
+          <div class="lh-t">Не торопитесь ради самой скорости</div>
+          <div class="lh-d">Неделя на подготовку лучше, чем отказ и потеря ещё месяца. При повторной подаче пособие назначат с месяца подачи, а не с момента первоначального обращения.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CTA -->
+<div class="bc fade-up">
+  <div class="bc-card">
+    <h2>Не уверены, пройдёте ли вы по критериям?</h2>
+    <p>Разберу вашу ситуацию: посчитаю доход, проверю состав семьи и имущество, помогу выбрать правильный месяц подачи. 40% отказов можно было избежать при правильной подготовке.</p>
+    <a href="https://t.me/ElenaKravtsova28?text=Здравствуйте%21%20Хочу%20записаться%20на%20консультацию" target="_blank" class="cta-btn">💬 Записаться на консультацию</a>
+    <div class="cta-sub">Пишите в Telegram · @ElenaKravtsova28</div>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<div class="footer">
+  <p>Составлено: <a href="https://t.me/ElenaKravtsova28" target="_blank">Елена Кравцова</a> · Юрист по пособиям · POSOBIYARU</p>
+  <p style="margin-top:5px;opacity:0.6;">Информация актуальна на июль 2026 года и носит ознакомительный характер</p>
+</div>
+
+<script>
+  const pb = document.getElementById('pb');
+  const sc = document.getElementById('sc');
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY, t = document.body.scrollHeight - window.innerHeight;
+    pb.style.width = Math.min(100, (s/t)*100) + '%';
+    s > 300 ? sc.classList.add('show') : sc.classList.remove('show');
+  });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  }, {threshold:0.08, rootMargin:'0px 0px -30px 0px'});
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
